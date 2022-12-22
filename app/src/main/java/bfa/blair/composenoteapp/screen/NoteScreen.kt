@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import bfa.blair.composenoteapp.R
+import bfa.blair.composenoteapp.components.NoteButton
 import bfa.blair.composenoteapp.components.NoteInputText
 
 @Composable
@@ -40,14 +41,27 @@ fun NoteScreen() {
         // Content
         Column(modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            NoteInputText(text = title,
+            NoteInputText(
+                modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
+                text = title,
                 label = "Title",
-                onTextChange = {},
+                onTextChange = {
+                    if(it.all { char ->
+                        char.isLetter() || char.isWhitespace()
+                        }) title = it
+                },
                 onImeAction = {})
-            NoteInputText(text = description,
+            NoteInputText(
+                modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
+                text = description,
                 label = "Add a note",
-                onTextChange = {},
+                onTextChange = {
+                    if(it.all { char ->
+                            char.isLetter() || char.isWhitespace()
+                        }) description = it
+                },
                 onImeAction = {})
+            NoteButton(text = "Done", onClick = { /*TODO*/ })
         }
     }
 }
