@@ -61,7 +61,15 @@ fun NoteScreen() {
                         }) description = it
                 },
                 onImeAction = {})
-            NoteButton(text = "Done", onClick = { /*TODO*/ })
+            NoteButton(
+                text = "Done",
+                onClick = {
+                if(title.isNotEmpty() && description.isNotEmpty()) {
+                    // Save or add data to list
+                    title = ""
+                    description = ""
+                }
+            })
         }
     }
 }
