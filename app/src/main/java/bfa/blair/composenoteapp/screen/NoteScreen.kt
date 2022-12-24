@@ -66,6 +66,7 @@ fun NoteScreen() {
                 onClick = {
                 if(title.isNotEmpty() && description.isNotEmpty()) {
                     // Save or add data to list
+                    // Comment
                     title = ""
                     description = ""
                 }
