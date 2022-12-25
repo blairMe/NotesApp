@@ -18,9 +18,12 @@ import androidx.compose.ui.unit.dp
 import bfa.blair.composenoteapp.R
 import bfa.blair.composenoteapp.components.NoteButton
 import bfa.blair.composenoteapp.components.NoteInputText
+import bfa.blair.composenoteapp.model.Note
 
 @Composable
-fun NoteScreen() {
+fun NoteScreen(note : List<Note>,
+               onAddNote: (Note) -> Unit,
+               onRemoveNote: (Note) -> Unit) {
 
     var title by remember {
         mutableStateOf("")
@@ -78,5 +81,5 @@ fun NoteScreen() {
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview() {
-    NoteScreen()
+    NoteScreen(note = emptyList(), onAddNote = {}, onRemoveNote = {})
 }
