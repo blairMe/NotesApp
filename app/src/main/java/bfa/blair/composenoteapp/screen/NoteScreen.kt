@@ -1,19 +1,21 @@
 package bfa.blair.composenoteapp.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +25,9 @@ import bfa.blair.composenoteapp.components.NoteButton
 import bfa.blair.composenoteapp.components.NoteInputText
 import bfa.blair.composenoteapp.data.NoteDataSource
 import bfa.blair.composenoteapp.model.Note
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteScreen(notes : List<Note>,
                onAddNote: (Note) -> Unit,
@@ -83,14 +87,41 @@ fun NoteScreen(notes : List<Note>,
 
             LazyColumn {
                 items(notes) { note ->
-                    Text(text = note.title)
-
+                    NoteRow(note = note, onNoteClicked = {})
                 }
             }
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun NoteRow(
+    modifier: Modifier = Modifier,
+    note : Note,
+    onNoteClicked : (Note) -> Unit,
+) {
+    Surface(modifier
+        .padding(4.dp)
+        .clip(RoundedCornerShape(topEnd = 13.dp, bottomStart = 13.dp))
+        .fillMaxWidth(),
+        color = Color(0xFFDFE6EB),
+        elevation = 6.dp) {
+        Column(modifier = Modifier
+            .clickable { }
+            .padding(horizontal = 14.dp, vertical = 6.dp),
+            horizontalAlignment = Alignment.Start ) {
+                Text(text = note.title,
+                    style = MaterialTheme.typography.subtitle2)
+                Text(text = note.title,
+                    style = MaterialTheme.typography.subtitle1)
+                Text(text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
+                    style = MaterialTheme.typography.caption)
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview() {
