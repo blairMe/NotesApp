@@ -3,6 +3,9 @@ package bfa.blair.composenoteapp.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -18,10 +21,11 @@ import androidx.compose.ui.unit.dp
 import bfa.blair.composenoteapp.R
 import bfa.blair.composenoteapp.components.NoteButton
 import bfa.blair.composenoteapp.components.NoteInputText
+import bfa.blair.composenoteapp.data.NoteDataSource
 import bfa.blair.composenoteapp.model.Note
 
 @Composable
-fun NoteScreen(note : List<Note>,
+fun NoteScreen(notes : List<Note>,
                onAddNote: (Note) -> Unit,
                onRemoveNote: (Note) -> Unit) {
 
@@ -74,6 +78,15 @@ fun NoteScreen(note : List<Note>,
                     description = ""
                 }
             })
+
+            Divider(modifier = Modifier.padding(10.dp))
+
+            LazyColumn {
+                items(notes) { note ->
+                    Text(text = note.title)
+
+                }
+            }
         }
     }
 }
@@ -81,5 +94,5 @@ fun NoteScreen(note : List<Note>,
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview() {
-    NoteScreen(note = emptyList(), onAddNote = {}, onRemoveNote = {})
+    NoteScreen(notes = NoteDataSource().loadNotes(), onAddNote = {}, onRemoveNote = {})
 }

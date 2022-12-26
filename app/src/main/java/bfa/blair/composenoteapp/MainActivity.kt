@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import bfa.blair.composenoteapp.data.NoteDataSource
 import bfa.blair.composenoteapp.screen.NoteScreen
 import bfa.blair.composenoteapp.ui.theme.ComposeNoteAppTheme
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NoteScreen(note = emptyList(), onAddNote = {}, onRemoveNote = {})
+                    NoteScreen(notes = NoteDataSource().loadNotes(), onAddNote = {}, onRemoveNote = {})
                 }
             }
         }
