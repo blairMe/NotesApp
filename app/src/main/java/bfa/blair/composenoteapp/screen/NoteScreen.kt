@@ -1,6 +1,7 @@
 package bfa.blair.composenoteapp.screen
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,8 @@ fun NoteScreen(notes : List<Note>,
     var description by remember {
         mutableStateOf("")
     }
+
+    val content = LocalContext.current
 
     Column(modifier = Modifier.padding(16.dp)) {
         TopAppBar(title = {
@@ -77,9 +81,10 @@ fun NoteScreen(notes : List<Note>,
                 onClick = {
                 if(title.isNotEmpty() && description.isNotEmpty()) {
                     // Save or add data to list
-                    // Comment
+                    onAddNote(Note(title = title, description = description))
                     title = ""
                     description = ""
+                    Toast.makeText(content, "Note Added", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -87,7 +92,7 @@ fun NoteScreen(notes : List<Note>,
 
             LazyColumn {
                 items(notes) { note ->
-                    NoteRow(note = note, onNoteClicked = {})
+                    NoteRow(note = note, onNoteClicked = { onRemoveNote(note) } )
                 }
             }
         }
@@ -108,7 +113,9 @@ fun NoteRow(
         color = Color(0xFFDFE6EB),
         elevation = 6.dp) {
         Column(modifier = Modifier
-            .clickable { }
+            .clickable {
+                onNoteClicked(note)
+            }
             .padding(horizontal = 14.dp, vertical = 6.dp),
             horizontalAlignment = Alignment.Start ) {
                 Text(text = note.title,
