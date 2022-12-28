@@ -27,6 +27,7 @@ import bfa.blair.composenoteapp.components.NoteButton
 import bfa.blair.composenoteapp.components.NoteInputText
 import bfa.blair.composenoteapp.data.NoteDataSource
 import bfa.blair.composenoteapp.model.Note
+import bfa.blair.composenoteapp.utils.formatDate
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -122,8 +123,8 @@ fun NoteRow(
                     style = MaterialTheme.typography.subtitle2)
                 Text(text = note.title,
                     style = MaterialTheme.typography.subtitle1)
-                // Text(text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
-                //     style = MaterialTheme.typography.caption)
+                Text(text = formatDate(note.entryDate.time),
+                    style = MaterialTheme.typography.caption)
         }
     }
 }

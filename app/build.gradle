@@ -79,6 +79,12 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.3'
     annotationProcessor 'androidx.room:room-compiler:2.4.3'
 
+    // Room kpt
+    kapt 'androidx.room:room-compiler:2.4.3'
+
+    // Room ktx
+    implementation 'androidx.room:room-ktx:2.4.3'
+
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
