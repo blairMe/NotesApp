@@ -9,6 +9,7 @@ class UUIDConverter {
         return uuid.toString()
     }
 
+
     @TypeConverter
     fun uuidFromString(string: String) : UUID? {
         return UUID.fromString(string)
